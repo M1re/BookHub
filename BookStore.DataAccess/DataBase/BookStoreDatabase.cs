@@ -1,11 +1,13 @@
 ﻿
 using BookStore.API.Data;
+using BookStore.Domain.Models;
 using DataAccess.EntitySettings;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.DataAccess.DataBase
 {
-    public class BookStoreDatabase : DbContext
+    public class BookStoreDatabase : IdentityDbContext<ApiUser>
     {
         public BookStoreDatabase()
         {
