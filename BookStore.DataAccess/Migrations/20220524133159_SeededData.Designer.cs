@@ -4,6 +4,7 @@ using BookStore.DataAccess.DataBase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStore.DataAccess.Migrations
 {
     [DbContext(typeof(BookStoreDatabase))]
-    partial class BookStoreDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20220524133159_SeededData")]
+    partial class SeededData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -223,7 +225,7 @@ namespace BookStore.DataAccess.Migrations
                         {
                             Id = "818c63bc-e500-4815-97fc-ad7fa5a5ab35",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bc1e8ea6-faf0-4bb2-bfc9-f065c9701177",
+                            ConcurrencyStamp = "bdd789c7-377e-4573-b546-83d7ab6b5742",
                             Email = "admin@bookstore.com",
                             EmailConfirmed = false,
                             FirstName = "System",
@@ -231,9 +233,9 @@ namespace BookStore.DataAccess.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@BOOKSTORE.COM",
                             NormalizedUserName = "ADMIN@BOOKSTORE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEN7itVEUhti19Xcxe2WFS/WX2N4iimRmXwZNl4JsZeg02z2JcbKYk8hxF+Rq5fMBew==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFLm9ADMHEEA7iFu1Fov3PvAS12jtSA2NuM5ne/lqxejFpQK0UHG+ciFkvJsbrJ4XQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "083bb808-edf2-487c-a7b4-91fb0df12341",
+                            SecurityStamp = "5bfbc20d-825a-4170-bcb1-97779509b27a",
                             TwoFactorEnabled = false,
                             UserName = "admin@bookstore.com"
                         },
@@ -241,7 +243,7 @@ namespace BookStore.DataAccess.Migrations
                         {
                             Id = "fd4b49ef-60ce-4091-a314-29a571c1bc99",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b9ac857f-66a3-4566-baac-f1eb29025e93",
+                            ConcurrencyStamp = "573a3c9c-95e8-4a59-b75a-60af423de2fb",
                             Email = "user@bookstore.com",
                             EmailConfirmed = false,
                             FirstName = "System",
@@ -249,9 +251,9 @@ namespace BookStore.DataAccess.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@BOOKSTORE.COM",
                             NormalizedUserName = "USER@BOOKSTORE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENja6ISV5d38mbAl/n9pT0RG6aXPP1jP4kZAkmrGnigdVxJIg4qMiJd8rfTty/h44A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP6TMnbBa/NRn/es+1AZLvJTeyg/RNLdn/bfTMRFbd6TdXVXKCHxVyKcweGyZIyjhQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5733c26c-6d88-47ef-93a7-067be9e48cfb",
+                            SecurityStamp = "927fefdd-8ec4-48d2-aaf2-fc32f58fe49c",
                             TwoFactorEnabled = false,
                             UserName = "user@bookstore.com"
                         });
@@ -287,14 +289,14 @@ namespace BookStore.DataAccess.Migrations
                         new
                         {
                             Id = "edd63545-eb9f-46f0-bb37-e2e000cb4193",
-                            ConcurrencyStamp = "90bf2f93-54f8-41e7-9e41-2e24a21c6bd0",
+                            ConcurrencyStamp = "1a7f1166-0ba8-4037-a202-70232a4ee59b",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "e270b1f3-5780-40f1-817f-0852cca1b394",
-                            ConcurrencyStamp = "9ecba644-fabf-4622-a5e3-ca71a782e4db",
+                            ConcurrencyStamp = "d60e1f62-deae-4bc8-858b-1128a8267d4e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
