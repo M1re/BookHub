@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStore.DataAccess.Migrations
 {
     [DbContext(typeof(BookStoreDatabase))]
-    [Migration("20220524140352_SeededDatav2")]
-    partial class SeededDatav2
+    [Migration("20220524144108_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -225,7 +225,7 @@ namespace BookStore.DataAccess.Migrations
                         {
                             Id = "818c63bc-e500-4815-97fc-ad7fa5a5ab35",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bc1e8ea6-faf0-4bb2-bfc9-f065c9701177",
+                            ConcurrencyStamp = "9222cd04-f960-4611-9126-79de3ef5a75b",
                             Email = "admin@bookstore.com",
                             EmailConfirmed = false,
                             FirstName = "System",
@@ -233,9 +233,9 @@ namespace BookStore.DataAccess.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@BOOKSTORE.COM",
                             NormalizedUserName = "ADMIN@BOOKSTORE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEN7itVEUhti19Xcxe2WFS/WX2N4iimRmXwZNl4JsZeg02z2JcbKYk8hxF+Rq5fMBew==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENRAAYfdsiYiv+ASRh1PcoPUqCL9hWRcQXrqhH5Ecgf8mOzbLIOqpoybyHR/8as1aA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "083bb808-edf2-487c-a7b4-91fb0df12341",
+                            SecurityStamp = "a48ae36c-71a0-438a-986c-06630116d09d",
                             TwoFactorEnabled = false,
                             UserName = "admin@bookstore.com"
                         },
@@ -243,7 +243,7 @@ namespace BookStore.DataAccess.Migrations
                         {
                             Id = "fd4b49ef-60ce-4091-a314-29a571c1bc99",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b9ac857f-66a3-4566-baac-f1eb29025e93",
+                            ConcurrencyStamp = "2ec294bc-bef9-4742-816c-0ba491a6a149",
                             Email = "user@bookstore.com",
                             EmailConfirmed = false,
                             FirstName = "System",
@@ -251,9 +251,9 @@ namespace BookStore.DataAccess.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@BOOKSTORE.COM",
                             NormalizedUserName = "USER@BOOKSTORE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENja6ISV5d38mbAl/n9pT0RG6aXPP1jP4kZAkmrGnigdVxJIg4qMiJd8rfTty/h44A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF/mfEkZ5EhMlS319YpjuGn6iZ0r9FFoEfyXullk7AVBSiiZi1lzsFCqSWOP9iTlaQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5733c26c-6d88-47ef-93a7-067be9e48cfb",
+                            SecurityStamp = "033bc122-549d-41c7-970b-9a17dd046bd4",
                             TwoFactorEnabled = false,
                             UserName = "user@bookstore.com"
                         });
@@ -289,14 +289,14 @@ namespace BookStore.DataAccess.Migrations
                         new
                         {
                             Id = "edd63545-eb9f-46f0-bb37-e2e000cb4193",
-                            ConcurrencyStamp = "90bf2f93-54f8-41e7-9e41-2e24a21c6bd0",
+                            ConcurrencyStamp = "9284203b-8abe-4a8a-a568-842eb60c7703",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "e270b1f3-5780-40f1-817f-0852cca1b394",
-                            ConcurrencyStamp = "9ecba644-fabf-4622-a5e3-ca71a782e4db",
+                            ConcurrencyStamp = "6e82b0df-c119-4c3e-ac28-d6fa06bc912c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
