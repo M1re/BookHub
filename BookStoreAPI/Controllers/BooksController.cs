@@ -5,11 +5,11 @@ using BookStore.API.Data;
 using AutoMapper;
 using BookStore.API.Mapper.BookModels;
 using BookStore.DataAccess.DataBase;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BookStore.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [Route("api/[controller]"), ApiController,Authorize]
     public class BooksController : ControllerBase
     {
         private readonly BookStoreDatabase _context;
@@ -65,7 +65,7 @@ namespace BookStore.API.Controllers
 
         // PUT: api/Books/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("{id}"),Authorize(Roles= "Admin")]
         public async Task<IActionResult> PutBook(int id, BookUpdateModel model)
         {
             if (id != model.Id)
@@ -102,7 +102,7 @@ namespace BookStore.API.Controllers
 
         // POST: api/Books
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "Admin")]
         public async Task<ActionResult<BookCreateModel>> PostBook(BookCreateModel model)
         {
             try
@@ -123,7 +123,7 @@ namespace BookStore.API.Controllers
         }
 
         // DELETE: api/Books/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteBook(int id)
         {
             try

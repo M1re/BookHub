@@ -2,7 +2,7 @@
 
 namespace BookStore.API.Mapper.AuthorModels
 {
-    public class AuthorCreateModel : BaseModel
+    public class AuthorCreateModel
     {
         [Required,StringLength(20)]
         public string FirstName { get; set; }
