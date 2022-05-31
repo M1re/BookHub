@@ -1,7 +1,6 @@
-﻿namespace BookStore.API.Mapper
+﻿namespace BookStore.API.MapperModels;
+
+public class BaseModel
 {
-    public class BaseModel
-    {
-        public int Id { get; set; }
-    }
+    public int Id { get; set; }
 }

@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore.Domain", "BookSto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore.DataAccess", "BookStore.DataAccess\BookStore.DataAccess.csproj", "{93E4037C-2918-48BC-B19A-78B05282A1EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.UI", "BookStore.UI\BookStore.UI.csproj", "{4F1F9F9E-26E7-41A6-8F2B-22355FC0099E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore.UI", "BookStore.UI\BookStore.UI.csproj", "{4F1F9F9E-26E7-41A6-8F2B-22355FC0099E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

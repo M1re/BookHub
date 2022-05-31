@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
+using BookStore.API.MapperModels.UserModels;
 using BookStore.Domain.Models;
-using BookStoreAPI.MapperModels.UserModels;
 
-namespace BookStoreAPI.MapperConfiguration
+namespace BookStore.API.MapperConfiguration;
+
+public class UserConfiguration : Profile
 {
-    public class UserConfiguration:Profile
+    public UserConfiguration()
     {
-        public UserConfiguration()
-        {
-            CreateMap<ApiUser, UserDTO>().ReverseMap();
-        }
+        CreateMap<ApiUser, UserDTO>().ReverseMap();
     }
 }

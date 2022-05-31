@@ -1,16 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BookStore.API.Mapper.AuthorModels
+namespace BookStore.API.MapperModels.AuthorModels;
+
+public class AuthorUpdateModel : BaseModel
 {
-    public class AuthorUpdateModel : BaseModel
-    {
-        [Required, StringLength(20)]
-        public string FirstName { get; set; }
+    [Required] [StringLength(20)] public string FirstName { get; set; }
 
-        [Required, StringLength(20)]
-        public string LastName { get; set; }
+    [Required] [StringLength(20)] public string LastName { get; set; }
 
-        [StringLength(400)]
-        public string Bio { get; set; }
-    }
+    [StringLength(400)] public string Bio { get; set; }
 }

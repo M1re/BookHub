@@ -1,16 +1,15 @@
-﻿using BookStore.API.Data;
-using AutoMapper;
-using BookStore.API.Mapper.AuthorModels;
+﻿using AutoMapper;
+using BookStore.API.MapperModels.AuthorModels;
+using BookStore.Domain.Models;
 
-namespace BookStore.API.MapperConfiguration
+namespace BookStore.API.MapperConfiguration;
+
+public class AuthorConfiguration : Profile
 {
-    public class AuthorConfiguration : Profile
+    public AuthorConfiguration()
     {
-        public AuthorConfiguration()
-        {
-            CreateMap<AuthorCreateModel,Author>().ReverseMap();
-            CreateMap<AuthorUpdateModel,Author>().ReverseMap();
-            CreateMap<AuthorGetModel,Author>().ReverseMap();
-        }
+        CreateMap<AuthorCreateModel, Author>().ReverseMap();
+        CreateMap<AuthorUpdateModel, Author>().ReverseMap();
+        CreateMap<AuthorGetModel, Author>().ReverseMap();
     }
 }

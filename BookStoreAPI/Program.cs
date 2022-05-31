@@ -1,3 +1,4 @@
+using System.Text;
 using BookStore.DataAccess.DataBase;
 using BookStore.Domain.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -5,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("BookStoreConnection");
@@ -24,15 +24,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Host.UseSerilog((configContext, loggingConfig) =>
-loggingConfig.WriteTo.Console().ReadFrom.Configuration(configContext.Configuration));
+    loggingConfig.WriteTo.Console().ReadFrom.Configuration(configContext.Configuration));
 
-builder.Services.AddCors(options => {
-
+builder.Services.AddCors(options =>
+{
     options.AddPolicy("AllAllowed", builder =>
-    builder.AllowAnyHeader()
-    .AllowAnyMethod()
-    .AllowAnyOrigin());
-
+        builder.AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin());
 });
 builder.Services.AddAuthentication(options =>
 {

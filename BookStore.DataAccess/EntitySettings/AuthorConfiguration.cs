@@ -1,18 +1,16 @@
-﻿using BookStore.API.Data;
+﻿using BookStore.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+namespace BookStore.DataAccess.EntitySettings;
 
-namespace DataAccess.EntitySettings
+public class AuthorConfiguration : IEntityTypeConfiguration<Author>
 {
-    public class AuthorConfiguration : IEntityTypeConfiguration<Author>
+    public void Configure(EntityTypeBuilder<Author> builder)
     {
-        public void Configure(EntityTypeBuilder<Author> builder)
-        {
-            builder.ToTable(nameof(Author)).HasKey(i => i.Id);
+        builder.ToTable(nameof(Author)).HasKey(i => i.Id);
 
-            builder.HasMany(b => b.Books)
-                .WithOne(b => b.Author);
-        }
+        builder.HasMany(b => b.Books)
+            .WithOne(b => b.Author);
     }
 }

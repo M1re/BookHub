@@ -1,159 +1,140 @@
 ﻿#nullable disable
+using AutoMapper;
+using BookStore.API.MapperModels.AuthorModels;
+using BookStore.DataAccess.DataBase;
+using BookStore.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using BookStore.API.Data;
-using BookStore.API.Mapper.AuthorModels;
-using AutoMapper;
-using BookStore.DataAccess.DataBase;
-using Microsoft.AspNetCore.Authorization;
 
-namespace BookStore.API.Controllers
+namespace BookStore.API.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+[Authorize]
+public class AuthorsController : ControllerBase
 {
-    [Route("api/[controller]"),ApiController,Authorize]
-    
-    public class AuthorsController : ControllerBase
+    private readonly BookStoreDatabase _context;
+    private readonly ILogger _logger;
+    private readonly IMapper _mapper;
+
+    public AuthorsController(BookStoreDatabase context, IMapper mapper, ILogger<AuthorsController> logger)
     {
-        private readonly BookStoreDatabase _context;
-        private readonly IMapper _mapper;
-        private readonly ILogger _logger;
+        _context = context;
+        _mapper = mapper;
+        _logger = logger;
+    }
 
-        public AuthorsController(BookStoreDatabase context,IMapper mapper, ILogger<AuthorsController> logger)
+    // GET: api/Authors
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<AuthorGetModel>>> GetAuthors()
+    {
+        try
         {
-            _context = context;
-            _mapper = mapper;
-            _logger = logger;
-
+            var authors = _mapper.Map<IEnumerable<AuthorGetModel>>(await _context.Authors.ToListAsync());
+            return Ok(authors);
         }
-
-        // GET: api/Authors
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<AuthorGetModel>>> GetAuthors()
+        catch (Exception ex)
         {
-            try
-            {
-                var authors = _mapper.Map<IEnumerable<AuthorGetModel>>(await _context.Authors.ToListAsync());
-                return Ok(authors);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex,$"Error Performing Get in {nameof(GetAuthors)}");
-                return StatusCode(500,"There was an error completeing your request.");
-            }
-   
+            _logger.LogError(ex, $"Error Performing Get in {nameof(GetAuthors)}");
+            return StatusCode(500, "There was an error completeing your request.");
         }
+    }
 
-        // GET: api/Authors/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<AuthorGetModel>> GetAuthor(int id)
+    // GET: api/Authors/5
+    [HttpGet("{id}")]
+    public async Task<ActionResult<AuthorGetModel>> GetAuthor(int id)
+    {
+        try
         {
-            try
-            {
-                var author = await _context.Authors.FindAsync(id);
-
-                if (author == null)
-                {
-                    return NotFound();
-                }
-                var model = _mapper.Map<AuthorGetModel>(author);
-
-                return Ok(model);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, $"Error Performing Get in {nameof(GetAuthor)}");
-                return StatusCode(500, "There was an error completeing your request.");
-            }
-           
-        }
-
-        // PUT: api/Authors/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}"), Authorize(Roles = "Admin")]
-        public async Task<IActionResult> PutAuthor(int id, AuthorUpdateModel model)
-        {
-            if (id != model.Id)
-            {
-                return BadRequest();
-            }
-
             var author = await _context.Authors.FindAsync(id);
 
-            if (author == null)
-            {
-                return NotFound();
-            }
-            
-            _mapper.Map<AuthorUpdateModel>(author);
-            _context.Entry(author).State = EntityState.Modified;
+            if (author == null) return NotFound();
+            var model = _mapper.Map<AuthorGetModel>(author);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (! await AuthorExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            return Ok(model);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error Performing Get in {nameof(GetAuthor)}");
+            return StatusCode(500, "There was an error completeing your request.");
+        }
+    }
+
+    // PUT: api/Authors/5
+    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [HttpPut("{id}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> PutAuthor(int id, AuthorUpdateModel model)
+    {
+        if (id != model.Id) return BadRequest();
+
+        var author = await _context.Authors.FindAsync(id);
+
+        if (author == null) return NotFound();
+
+        _mapper.Map<AuthorUpdateModel>(author);
+        _context.Entry(author).State = EntityState.Modified;
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!await AuthorExists(id))
+                return NotFound();
+            throw;
+        }
+
+        return NoContent();
+    }
+
+    // POST: api/Authors
+    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [HttpPost]
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult<Author>> PostAuthor(AuthorCreateModel model)
+    {
+        try
+        {
+            var author = _mapper.Map<Author>(model);
+            await _context.Authors.AddAsync(author);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetAuthor", new { id = author.Id }, author);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error Performing Post in {nameof(PostAuthor)}");
+            return StatusCode(500, "There was an error completeing your request.");
+        }
+    }
+
+    // DELETE: api/Authors/5
+    [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> DeleteAuthor(int id)
+    {
+        try
+        {
+            var author = await _context.Authors.FindAsync(id);
+            if (author == null) return NotFound();
+
+            _context.Authors.Remove(author);
+            await _context.SaveChangesAsync();
 
             return NoContent();
         }
-
-        // POST: api/Authors
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost, Authorize(Roles = "Admin")]
-        public async Task<ActionResult<Author>> PostAuthor(AuthorCreateModel model)
+        catch (Exception ex)
         {
-            try
-            {
-                var author = _mapper.Map<Author>(model);
-                await _context.Authors.AddAsync(author);
-                await _context.SaveChangesAsync();
-
-                return CreatedAtAction("GetAuthor", new { id = author.Id }, author);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, $"Error Performing Post in {nameof(PostAuthor)}");
-                return StatusCode(500, "There was an error completeing your request.");
-            }
-            
+            _logger.LogError(ex, $"Error Performing Delete in {nameof(DeleteAuthor)}");
+            return StatusCode(500, "There was an error completeing your request.");
         }
+    }
 
-        // DELETE: api/Authors/5
-        [HttpDelete("{id}"), Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteAuthor(int id)
-        {
-            try
-            {
-                var author = await _context.Authors.FindAsync(id);
-                if (author == null)
-                {
-                    return NotFound();
-                }
-
-                _context.Authors.Remove(author);
-                await _context.SaveChangesAsync();
-
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, $"Error Performing Delete in {nameof(DeleteAuthor)}");
-                return StatusCode(500, "There was an error completeing your request.");
-            }
-           
-        }
-
-        private async Task<bool> AuthorExists(int id)
-        {
-            return await _context.Authors.AnyAsync(e => e.Id == id);
-        }
+    private async Task<bool> AuthorExists(int id)
+    {
+        return await _context.Authors.AnyAsync(e => e.Id == id);
     }
 }

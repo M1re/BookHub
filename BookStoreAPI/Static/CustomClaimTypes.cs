@@ -1,7 +1,6 @@
-﻿namespace BookStoreAPI.Static
+﻿namespace BookStore.API.Static;
+
+public static class CustomClaimTypes
 {
-    public static class CustomClaimTypes
-    {
-        public const string UID = "UID";
-    }
+    public const string UID = "UID";
 }
