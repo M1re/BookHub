@@ -1,5 +1,5 @@
 ﻿@page "/users/login"
-@inject IClient client
+@inject IAuthenticationService service
 
 <h3>Login</h3>
 
@@ -31,7 +31,13 @@
     {
         try
         {
-            var response = await client.LoginAsync(LoginModel);
+            var response = await service.AuthenticateAsync(LoginModel);
+
+            if(response)
+            {
+
+            }
+            message = "Invalid Credentials";
         }
         catch (ApiException ex)
         {

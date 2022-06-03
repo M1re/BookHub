@@ -6,12 +6,4 @@ namespace BookStore.UI.Services.Authentication
     {
         Task<bool> AuthenticateAsync(UserLoginDTO loginModel);
     }
-
-    public class AuthenticationService : IAuthenticationService
-    {
-        public Task<bool> AuthenticateAsync(UserLoginDTO loginModel)
-        {
-            throw new NotImplementedException();
-        }
-    }
 }
