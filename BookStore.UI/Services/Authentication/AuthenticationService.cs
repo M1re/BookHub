@@ -1,6 +1,7 @@
 ﻿using Blazored.LocalStorage;
 using BookStore.UI.Providers;
 using BookStore.UI.Services.Base;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace BookStore.UI.Services.Authentication
 {
@@ -8,9 +9,9 @@ namespace BookStore.UI.Services.Authentication
     {
         private readonly IClient client;
         private readonly ILocalStorageService storage;
-        private readonly AuthenticationProvider provider;
+        private readonly AuthenticationStateProvider provider;
 
-        public AuthenticationService(IClient client,ILocalStorageService storage,AuthenticationProvider provider)
+        public AuthenticationService(IClient client,ILocalStorageService storage,AuthenticationStateProvider provider)
         {
             this.client = client;
             this.storage = storage;
@@ -25,9 +26,14 @@ namespace BookStore.UI.Services.Authentication
 
 
             //Change auth state of app
-            await provider.LoggedIn();
+            await ((AuthenticationProvider)provider).LoggedIn();
 
             return true;
+        }
+
+        public async Task Logout()
+        {
+            await ((AuthenticationProvider)provider).LoggedOut();
         }
     }
 }

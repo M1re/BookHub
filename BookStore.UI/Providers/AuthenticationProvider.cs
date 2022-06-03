@@ -24,13 +24,13 @@ namespace BookStore.UI.Providers
                 return new AuthenticationState(user);
             }
 
-            var tokenContent = tokenHandler.ReadJwtToken(savedToken);
+            var tokenContent = tokenHandler.ReadToken(savedToken);
 
             if (tokenContent.ValidTo < DateTime.Now)
             {
                 return new AuthenticationState(user);
             }
-            var claims = tokenContent.Claims;
+            var claims = await GetClaims();
             user = new ClaimsPrincipal(new ClaimsIdentity(claims, "jwt"));
 
             return new AuthenticationState(user);
