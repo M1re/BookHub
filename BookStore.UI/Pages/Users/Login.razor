@@ -1,26 +1,27 @@
 ﻿@page "/users/login"
-@inject IAuthenticationService authService
-@inject NavigationManager navManager
+@inject IClient client
+
 <h3>Login</h3>
 
 <div>
-    <div class="card-body">
     <EditForm Model="LoginModel" OnValidSubmit="HandleLogin">
-        <DataAnnotationsValidator/>
+        <DataAnnotationsValidator />
         <ValidationSummary/>
         <div class="form-group">
-        <label for="email">Email Address</label>
-        <InputText class="form-control" @bind-Value="LoginModel.Email"/>
-        <ValidationMessage For="@(()=> LoginModel.Email)"/>
+            <label for="email">Email Adress</label>
+            <InputText class="form-control" @bind-Value="LoginModel.Email"/>
+            <ValidationMessage For="@(()=>LoginModel.Email)"/>
         </div>
+        <br />
         <div class="form-group">
-        <label for="password">Password</label>
-        <InputText class="form-control" type="password" @bind-Value="LoginModel.Password"/>
-        <ValidationMessage For="@(()=> LoginModel.Password)"/>
-        </div>  
-        <button type="submit" class="btn btn-primary btn-block">Log in</button>
+            <label for="email">Password</label>
+            <InputText class="form-control" type="password" @bind-Value="LoginModel.Password"/>
+            <ValidationMessage For="@(()=>LoginModel.Password)"/>
+        </div>
+         <br />
+        <button type="submit" class="btn btn-primary btn-block">Register</button>
+
     </EditForm>
-</div>
 </div>
 
 @code {
@@ -30,21 +31,16 @@
     {
         try
         {
-            var response = await authService.AuthenticateAsync(LoginModel);
+            var response = await client.LoginAsync(LoginModel);
 
-            if(response)
-            {
-                navManager.NavigateTo("/");
-            }
-            message = "Invalid Credentials, Please Try Again";
         }
         catch (ApiException ex)
         {
             if(ex.StatusCode >= 200 && ex.StatusCode <= 299)
             {
-                
+               
             }
-            message = ex.Message;
+            message = ex.Response;
         }
     }
 }
